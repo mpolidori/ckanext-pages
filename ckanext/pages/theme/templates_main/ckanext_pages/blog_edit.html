@@ -2,7 +2,24 @@
 
 {% block subtitle %}{{ _('Edit Article')}} {% endblock %}
 
+{% block toolbar %}
+  <div class="container-fluid">
+    <div class="toolbar">
+      <ol class="breadcrumb">
+        {% snippet 'snippets/home_breadcrumb_item.html' %}
+        <li>{% link_for _('Blog'), controller='ckanext.pages.controller:PagesController', action='blog_index' %}</li>
+        {% if page %}
+          {% set text = _('Edit') %}
+          <li>{% link_for page, controller='ckanext.pages.controller:PagesController', action='blog_show', page='/' + page %}</li>
+        {% else %}
+          {% set text = _('Add article') %}
+        {% endif %}
+        <li class="active">{% link_for text, controller='ckanext.pages.controller:PagesController', action='blog_edit', page='/' + page %}</li>
+      </ol>
+    </div>
+  </div>
+{% endblock %}
+
 {% block primary_content_inner %}
   {% snippet 'ckanext_pages/base_form.html', page=page, data=data, errors=errors, type='blog'%}
 {% endblock %}
-

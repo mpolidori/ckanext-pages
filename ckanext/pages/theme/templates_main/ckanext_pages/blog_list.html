@@ -13,9 +13,18 @@
 {% endblock %}
 
 {% block main_content %}
-  <div class="container">
-    <div class="wrapper no-nav">
-      {{ self.primary_content() }}
-    </div>
+<div class="container-fluid">
+  <div class="toolbar">
+    <ol class="breadcrumb">
+      {% snippet 'snippets/home_breadcrumb_item.html' %}
+      <li class="active">{% link_for _('Blog'), controller='ckanext.pages.controller:PagesController', action='blog_index' %}</li>
+    </ol>
   </div>
+</div>
+
+<div class="container">
+  <div class="wrapper no-nav">
+    {{ self.primary_content() }}
+  </div>
+</div>
 {% endblock %}

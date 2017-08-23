@@ -2,6 +2,18 @@
 {% block bodytag %}{{ super() }} class="blog"{% endblock %}
 {% block subtitle %}{{ c.page.title }}{% endblock %}
 
+{% block toolbar %}
+  <div class="container-fluid">
+    <div class="toolbar">
+      <ol class="breadcrumb">
+        {% snippet 'snippets/home_breadcrumb_item.html' %}
+        <li>{% link_for _('Blog'), controller='ckanext.pages.controller:PagesController', action='blog_index' %}</li>
+        <li class="active">{% link_for c.page.title, controller='ckanext.pages.controller:PagesController', action='blog_show', page='/' + c.page.name %}</li>
+      </ol>
+    </div>
+  </div>
+{% endblock %}
+
 {% block primary_content %}
   <section class="module-content">
     {% if h.check_access('ckanext_pages_update') %}

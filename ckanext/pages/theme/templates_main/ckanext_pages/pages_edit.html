@@ -7,11 +7,25 @@
 {% endblock %}
 
 {% block main_content %}
-   {{ self.flash() }}
-   {{ self.toolbar() }}
-   <div class="container">
-     <div class="wrapper no-nav">
-       {{ self.primary_content() }}
-     </div>
-   </div>
+  {{ self.flash() }}
+  <div class="container-fluid">
+    <div class="toolbar">
+      <ol class="breadcrumb">
+        {% snippet 'snippets/home_breadcrumb_item.html' %}
+        <li>{% link_for _('Pages'), controller='ckanext.pages.controller:PagesController', action='pages_index' %}</li>
+        {% if page %}
+          {% set text = _('Edit') %}
+          <li>{% link_for page, controller='ckanext.pages.controller:PagesController', action='pages_show', page='/' + page %}</li>
+        {% else %}
+          {% set text = _('Add page') %}
+        {% endif %}
+        <li class="active">{% link_for text, controller='ckanext.pages.controller:PagesController', action='pages_edit', page='/' + page %}</li>
+      </ol>
+    </div>
+  </div>
+  <div class="container">
+    <div class="wrapper no-nav">
+      {{ self.primary_content() }}
+    </div>
+  </div>
 {% endblock %}
