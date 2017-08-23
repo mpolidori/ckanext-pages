@@ -1,4 +1,4 @@
-{% extends 'ckanext_pages/edit_base.html' %} 
+{% extends 'ckanext_pages/edit_base.html' %}
 
 {% block page_primary_action %}
   {% if h.check_access('ckanext_pages_update', {}) %}
@@ -13,7 +13,9 @@
 {% endblock %}
 
 {% block main_content %}
-   <div class="wrapper no-nav">
-     {{ self.primary_content() }}
-   </div>
+  <div class="container">
+    <div class="wrapper no-nav">
+      {{ self.primary_content() }}
+    </div>
+  </div>
 {% endblock %}

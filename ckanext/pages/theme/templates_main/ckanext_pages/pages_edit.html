@@ -9,7 +9,9 @@
 {% block main_content %}
    {{ self.flash() }}
    {{ self.toolbar() }}
-   <div class="wrapper no-nav">
-     {{ self.primary_content() }}
+   <div class="container">
+     <div class="wrapper no-nav">
+       {{ self.primary_content() }}
+     </div>
    </div>
 {% endblock %}
