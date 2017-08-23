@@ -23,6 +23,8 @@
       <p class="empty">{{ _('This page currently has no content') }}</p>
     {% endif %}
   </section>
+
+  {{ h.disqus_comments() }}
 {% endblock %}
 
 {% block secondary %}{% endblock %}
