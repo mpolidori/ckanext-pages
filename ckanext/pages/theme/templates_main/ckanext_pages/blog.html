@@ -3,14 +3,12 @@
 {% block subtitle %}{{ c.page.title }}{% endblock %}
 
 {% block toolbar %}
-  <div class="container-fluid">
-    <div class="toolbar">
-      <ol class="breadcrumb">
-        {% snippet 'snippets/home_breadcrumb_item.html' %}
-        <li>{% link_for _('Blog'), controller='ckanext.pages.controller:PagesController', action='blog_index' %}</li>
-        <li class="active">{% link_for c.page.title, controller='ckanext.pages.controller:PagesController', action='blog_show', page='/' + c.page.name %}</li>
-      </ol>
-    </div>
+  <div class="toolbar">
+    <ol class="breadcrumb">
+      {% snippet 'snippets/home_breadcrumb_item.html' %}
+      <li>{% link_for _('Blog'), controller='ckanext.pages.controller:PagesController', action='blog_index' %}</li>
+      <li class="active">{% link_for c.page.title, controller='ckanext.pages.controller:PagesController', action='blog_show', page='/' + c.page.name %}</li>
+    </ol>
   </div>
 {% endblock %}
 
