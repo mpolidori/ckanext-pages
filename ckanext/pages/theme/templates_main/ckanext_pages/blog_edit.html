@@ -3,7 +3,6 @@
 {% block subtitle %}{{ _('Edit Article')}} {% endblock %}
 
 {% block toolbar %}
-  <div class="container-fluid">
     <div class="toolbar">
       <ol class="breadcrumb">
         {% snippet 'snippets/home_breadcrumb_item.html' %}
@@ -17,7 +16,6 @@
         <li class="active">{% link_for text, controller='ckanext.pages.controller:PagesController', action='blog_edit', page='/' + page %}</li>
       </ol>
     </div>
-  </div>
 {% endblock %}
 
 {% block primary_content_inner %}
