@@ -96,8 +96,16 @@ def get_plus_icon():
         icon = 'plus-square'
     else:
         icon = 'plus-sign-alt'
-        
+
     return icon
+
+
+def get_image_from_content(content):
+    parser = actions.HTMLFirstImage()
+    parser.feed(content)
+    img = parser.first_image
+
+    return img
 
 
 class PagesPlugin(PagesPluginBase):
@@ -135,7 +143,8 @@ class PagesPlugin(PagesPluginBase):
             'render_content': render_content,
             'get_wysiwyg_editor': get_wysiwyg_editor,
             'get_recent_blog_posts': get_recent_blog_posts,
-            'pages_get_plus_icon': get_plus_icon
+            'pages_get_plus_icon': get_plus_icon,
+            'get_image_from_content': get_image_from_content
         }
 
     def after_map(self, map):
