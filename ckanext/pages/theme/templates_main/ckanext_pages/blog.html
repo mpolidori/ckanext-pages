@@ -2,6 +2,17 @@
 {% block bodytag %}{{ super() }} class="blog"{% endblock %}
 {% block subtitle %}{{ c.page.title }}{% endblock %}
 
+{% block meta %}
+
+<!-- Open Graph protocol markup -->
+<meta property="og:title" content="{{ c.page.title }}" />
+<meta property="og:description" content="{{ g.site_description }}" />
+<meta property="og:image" content="{{ h.get_image_from_content(c.page.content) }}" />
+<!-- ./ Open Graph protocol markup -->
+
+{{ super() }}
+{% endblock %}
+
 {% block toolbar %}
   <div class="toolbar">
     <ol class="breadcrumb">
