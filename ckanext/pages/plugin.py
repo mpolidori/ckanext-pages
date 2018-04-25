@@ -21,6 +21,7 @@ else:
 
 log = logging.getLogger(__name__)
 
+
 def build_pages_nav_main(*args):
 
     about_menu = toolkit.asbool(config.get('ckanext.pages.about_menu', True))
@@ -40,12 +41,13 @@ def build_pages_nav_main(*args):
     output = h.build_nav_main(*new_args)
 
     # do not display any private datasets in menu even for sysadmins
-    pages_list = toolkit.get_action('ckanext_pages_list')(None, {'order': True, 'private': False})
+    pages_list = toolkit.get_action('ckanext_pages_list')(
+        None, {'order': True, 'private': False})
 
     page_name = ''
 
     if (toolkit.c.action in ('pages_show', 'blog_show')
-       and toolkit.c.controller == 'ckanext.pages.controller:PagesController'):
+            and toolkit.c.controller == 'ckanext.pages.controller:PagesController'):
         page_name = toolkit.c.environ['routes.url'].current().split('/')[-1]
 
     for page in pages_list:
@@ -91,6 +93,22 @@ def get_recent_blog_posts(number=5, exclude=None):
     return new_list
 
 
+def get_recent_pages_posts(number=5, exclude=None):
+    pages_list = toolkit.get_action('ckanext_pages_list')(
+        None, {'order_publish_date': True, 'private': False,
+               'page_type': 'page'}
+    )
+    new_list = []
+    for page in pages_list:
+        if exclude and page['name'] == exclude:
+            continue
+        new_list.append(page)
+        if len(new_list) == number:
+            break
+
+    return new_list
+
+
 def get_plus_icon():
     if toolkit.check_ckan_version(min_version='2.7'):
         return 'plus-square'
@@ -104,7 +122,6 @@ class PagesPlugin(PagesPluginBase):
     p.implements(p.IRoutes, inherit=True)
     p.implements(p.IActions, inherit=True)
     p.implements(p.IAuthFunctions, inherit=True)
-
 
     def update_config(self, config):
         self.organization_pages = toolkit.asbool(config.get('ckanext.pages.organization', False))
@@ -132,7 +149,8 @@ class PagesPlugin(PagesPluginBase):
             'render_content': render_content,
             'get_wysiwyg_editor': get_wysiwyg_editor,
             'get_recent_blog_posts': get_recent_blog_posts,
-            'pages_get_plus_icon': get_plus_icon
+            'pages_get_plus_icon': get_plus_icon,
+            'get_recent_pages_posts': get_recent_pages_posts
         }
 
     def after_map(self, map):
@@ -158,7 +176,6 @@ class PagesPlugin(PagesPluginBase):
             map.connect('group_pages', '/group/pages/{id}{page:/.*|}',
                         action='group_show', ckan_icon='file', controller=controller, highlight_actions='group_edit group_show')
 
-
         map.connect('pages_delete', '/pages_delete{page:/.*|}',
                     action='pages_delete', ckan_icon='delete', controller=controller)
         map.connect('pages_edit', '/pages_edit{page:/.*|}',
@@ -180,7 +197,6 @@ class PagesPlugin(PagesPluginBase):
                     action='blog_show', ckan_icon='file', controller=controller, highlight_actions='blog_edit blog_index blog_show')
         return map
 
-
     def get_actions(self):
         actions_dict = {
             'ckanext_pages_show': actions.pages_show,
@@ -190,7 +206,7 @@ class PagesPlugin(PagesPluginBase):
             'ckanext_pages_upload': actions.pages_upload,
         }
         if self.organization_pages:
-            org_actions={
+            org_actions = {
                 'ckanext_org_pages_show': actions.org_pages_show,
                 'ckanext_org_pages_update': actions.org_pages_update,
                 'ckanext_org_pages_delete': actions.org_pages_delete,
@@ -198,7 +214,7 @@ class PagesPlugin(PagesPluginBase):
             }
             actions_dict.update(org_actions)
         if self.group_pages:
-            group_actions={
+            group_actions = {
                 'ckanext_group_pages_show': actions.group_pages_show,
                 'ckanext_group_pages_update': actions.group_pages_update,
                 'ckanext_group_pages_delete': actions.group_pages_delete,
@@ -222,7 +238,8 @@ class PagesPlugin(PagesPluginBase):
             'ckanext_group_pages_update': auth.group_pages_update,
             'ckanext_group_pages_delete': auth.group_pages_delete,
             'ckanext_group_pages_list': auth.group_pages_list,
-       }
+        }
+
 
 class TextBoxView(p.SingletonPlugin):
 
