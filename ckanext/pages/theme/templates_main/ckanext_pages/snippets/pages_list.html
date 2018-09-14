@@ -9,7 +9,9 @@
 {% endif %}
 #}
 
-{% if type == 'blog' %}
+{% if q %}
+<h2>{{ pages_total }}{% trans %} results found for {% endtrans %}"{{q}}"</h2>
+{% elif type == 'blog' %}
   <h2>Blog</h2>
 {% else %}
  <h2>Pages</h2>
@@ -45,7 +47,7 @@
                 {{page.content|striptags|truncate}}
               </div>
               {% else %}
-                {{ h.markdown_extract(page.content) }}
+                {{ h.markdown_extract(h.strip_script_and_style_from_string(page.content)) }}
               {% endif %}
             {% else %}
               <p class="empty">{{ _('This page currently has no content') }}</p>
@@ -65,7 +67,7 @@
               {{page.content|striptags|truncate}}
             </div>
             {% else %}
-              {{ h.markdown_extract(page.content) }}
+              {{ h.markdown_extract(h.strip_script_and_style_from_string(page.content)) }}
             {% endif %}
           {% else %}
             <p class="empty">{{ _('This page currently has no content') }}</p>
