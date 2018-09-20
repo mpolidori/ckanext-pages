@@ -18,3 +18,9 @@
 .secondary .blog-content .btn {
 	display:none;
 }
+
+.page-container {
+	padding: 20px;
+	background-color: #ffffff;
+	border-top: 4px solid #E4312A;
+}
