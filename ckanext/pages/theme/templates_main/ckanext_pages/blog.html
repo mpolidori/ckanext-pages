@@ -3,7 +3,7 @@
 {% block subtitle %}{{ c.page.title }}{% endblock %}
 
 {% block primary_content %}
-  <section class="module-content">
+  <section class="module-content page-container">
     {% if h.check_access('ckanext_pages_update') %}
       {% link_for _('Edit'), controller='ckanext.pages.controller:PagesController', action='blog_edit', page='/' + c.page.name, class_='btn btn-primary pull-right', icon='edit' %}
     {% endif %}
@@ -24,6 +24,18 @@
       <p class="empty">{{ _('This page currently has no content') }}</p>
     {% endif %}
   </section>
+
+  {% block disqus_comments %}
+    <div id="module-commentaires" style="margin-top: -20px; margin-bottom: 20px;">
+      <div class="avertissement-disqus">
+        <h3>Commentaires</h3>
+        <p>Ce site utilise un service de gestion des commentaires externe et privé, <a href="http://help.disqus.com/customer/portal/articles/466259-privacy-policy">Disqus</a> [en anglais].</p>
+        <p>Lire également notre page : <a href="http://donnees.ville.montreal.qc.ca/portail/gestion-des-commentaires/">Gestion des commentaires et des échanges sur les médias sociaux</a></p>
+        <p>Si vous souhaitez laisser un commentaire privé, vous pouvez utiliser le formulaire <a href="http://donnees.ville.montreal.qc.ca/portail/nous-joindre/">Nous joindre</a>.</p>
+      </div>
+      {{ h.disqus_comments() }}
+    </div>
+  {% endblock %}
 {% endblock %}
 
 {% block secondary_content %}
