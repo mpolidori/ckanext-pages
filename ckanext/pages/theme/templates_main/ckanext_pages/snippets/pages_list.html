@@ -29,7 +29,7 @@
         {% set url = h.url_for(controller='ckanext.pages.controller:PagesController', action='pages_show', page='/' + page.name) %}
       {% endif %}
       <div class="row page-list-item dataset-item">
-        <div class="span11">
+        <div class="span8">
           <h3 class="dataset-heading">
             <a href="{{ url }}" >{{ page.title }}</a>
             {% if page.publish_date %}
