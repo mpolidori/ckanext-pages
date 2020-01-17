@@ -23,6 +23,12 @@ log = logging.getLogger(__name__)
 
 def build_pages_nav_main(*args):
 
+    # This is a workaround to add a home tab
+    # without duplicating ckanext-pages tabs.
+    # See https://github.com/ckan/ckanext-pages/issues/80
+    arg_with_home = (('home', u'Home'),) + args
+    args = arg_with_home
+
     about_menu = toolkit.asbool(config.get('ckanext.pages.about_menu', True))
     group_menu = toolkit.asbool(config.get('ckanext.pages.group_menu', True))
     org_menu = toolkit.asbool(config.get('ckanext.pages.organization_menu', True))
